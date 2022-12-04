@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('count-numbers/{start}/{end}', [TaskOneController::class, 'count_numbers']);
 Route::get('string-index/{input_string}', [TaskOneController::class, 'string_index']);
+Route::get('steps-count', [TaskOneController::class, 'steps_count']);

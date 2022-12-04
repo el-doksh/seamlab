@@ -49,4 +49,77 @@ class TaskOneController extends Controller
         }
         return $output;
     }
+
+    /**
+     * count steps to reduce each element in given array to zero as per two rules
+     * @param array $Q 
+     * @param int $N
+     * @return array
+     */
+    public function steps_count(Request $request)
+    {
+        $Q = $request->Q;
+        $N = $request->N;
+
+        // 1: If we take 2 integers a and b where (X == a * b)
+        // And (a != 1, b != 1) then we can change
+        // X = max (a, b)
+        // 2: Decrease the value of X by 1.
+
+        $output = [];
+        for ( $i = 0 ; $i < $N ; $i++) { 
+            $steps = 0;
+            $output[] = $this->reduce_steps($Q[$i], $steps);
+        }
+        return $output;
+
+        // 3
+        // 3 > 2 > 1 > 0 // 3 steps
+
+        // 4
+        // 4 > 2 > 1 > 0 // 3 steps
+
+        // 20
+        // 20 > 10 > 5 > 4 > 2 > 1 > 0   // 6 steps
+        // 20 > 5 > 4 > 2 > 1 > 0        // 5 steps
+
+        // 100
+        // 100 > 50 > 25 > 5 > 4 > 2 > 1 > 0   // 7 steps 
+        // 100 > 10 > 5 > 4 > 2 > 1 > 0        // 6 steps 
+    }
+
+    private function reduce_steps(int $number, int $steps )
+    {
+        do {
+            // if ( $this->is_prime_number($number) ) {
+                //decrease current number by 1
+                --$number;
+            // } else {
+                // get max number of two multiply integers
+            //     // 
+            // }
+            $steps++;
+        } while ($number > 0);
+        // if($number == 0)
+        
+        return $steps;
+    }
+
+    /**
+     * check the given number is prime or not
+     * @param int $num
+     * @return bool
+     */
+    private function is_prime_number(int $number)
+    {
+        if ($number == 1) {
+            return false;
+        }
+        for ($i = 2; $i <= $number/2; $i++) {
+            if ($number % $i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
