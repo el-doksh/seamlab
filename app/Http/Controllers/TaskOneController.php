@@ -61,47 +61,42 @@ class TaskOneController extends Controller
         $Q = $request->Q;
         $N = $request->N;
 
-        // 1: If we take 2 integers a and b where (X == a * b)
-        // And (a != 1, b != 1) then we can change
-        // X = max (a, b)
-        // 2: Decrease the value of X by 1.
-
         $output = [];
         for ( $i = 0 ; $i < $N ; $i++) { 
-            $steps = 0;
-            $output[] = $this->reduce_steps($Q[$i], $steps);
+            $output[] = $this->calculate_steps($Q[$i]);
         }
         return $output;
-
-        // 3
-        // 3 > 2 > 1 > 0 // 3 steps
-
-        // 4
-        // 4 > 2 > 1 > 0 // 3 steps
-
-        // 20
-        // 20 > 10 > 5 > 4 > 2 > 1 > 0   // 6 steps
-        // 20 > 5 > 4 > 2 > 1 > 0        // 5 steps
-
-        // 100
-        // 100 > 50 > 25 > 5 > 4 > 2 > 1 > 0   // 7 steps 
-        // 100 > 10 > 5 > 4 > 2 > 1 > 0        // 6 steps 
     }
 
-    private function reduce_steps(int $number, int $steps )
+    /**
+     * calculate steps for the given number to reach zero
+     * @param int $number
+     * @return int steps
+     */
+    private function calculate_steps(int $number)
     {
+        $steps = 0;
         do {
-            // if ( $this->is_prime_number($number) ) {
+            if ( $this->is_prime_number($number) || $number <= 3 ) {
                 //decrease current number by 1
                 --$number;
-            // } else {
+            } else {
                 // get max number of two multiply integers
-            //     // 
-            // }
+                for($i = 2; $i <= $number/2 ; $i++) {
+                    if($number % $i == 0) {
+                        $number = max([$i, ($number/$i)]); 
+                        break;
+                    }
+                }
+                for($i = $number/2 ; $i >= 1 ; $i--) {
+                    if($number % $i == 0) {
+                        $number = max([$i, ($number/$i)]); 
+                        break;
+                    }
+                }
+            }
             $steps++;
         } while ($number > 0);
-        // if($number == 0)
-        
         return $steps;
     }
 
