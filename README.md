@@ -1,66 +1,114 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Installation steps
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+* run composer install
+* copy .env.example and rename new file to .env
+* create mysql database 
+* set database credenitals in .env
+* run php artisan config:cache
+* run php artisan key:generate
+* run php artisan migrate --seed
+* run php artisan optimize:clear
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## APIs documentations
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* count numbers between two integers API
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- endpoint : /count-numbers/{first_number}/{second_number}
+- method: GET
+- params : first_name (integer)
+- params : second_number (integer) : should be greater than first_name
+- return type : integer 
 
-## Learning Laravel
+- example:
+- request: /count-numbers/5/20
+- response: 14
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* get index for given string API
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- endpoint : /string-index/{input_string}
+- method: GET
+- params : input_string (string) should have characters only
+- return type : integer 
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- example: 
+- request: /string-index/AA
+- response: 27
 
-## Laravel Sponsors
+* calculate steps to reduce element of array to zero API
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- endpoint : /steps-count
+- method: GET
+- params : N (integer) count of elements
+- params : Q (array of N integers)
+- return type : array
 
-### Premium Partners
+- example: 
+- request: /steps-count
+- body: {
+    "Q" : [
+        3,
+        4,
+        5
+    ],
+    "N" : 3
+}
+- response: [
+    3,
+    3,
+    4
+]
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+* menu items API
 
-## Contributing
+- return menu items list api
+- endpoint : /menu-items
+- method : GET
+- return type : array of objects 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+* create order API
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- endpoint : /order
+- method : POST
+- params : status (string should be in dine-in, delivery or takeaway )
+- params : items (array of items each item should have menu_item_id & quantity )
+- params : customer_name (string required if status is delivery)
+- params : customer_phone (integer required if status is delivery)
+- params : table_number (integer required if status is dine-in)
+- params : waiter_name (string required if status is dine-in)
+- params : fees (double required if status in delivery or dine-in)
+- return type : order object
 
-## Security Vulnerabilities
+- example:
+- request: /order
+- body : {
+    "status" : "dine-in",
+    "items" : [
+        {
+            "menu_item_id" : 2,
+            "quantity": 5
+        },
+        {
+            "menu_item_id" : 3,
+            "quantity": 3
+        }
+    ],
+    "table_number" : 4,
+    "waiter_name" : "Sherif Hesham",
+    "fees" : 40
+}
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- response :{
+    "message": "Order created successfully",
+    "errors": [],
+    "data": {
+        "id": 1,
+        "status": "dine-in",
+        "fees": 40,
+        "total": 540
+    }
+}
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
