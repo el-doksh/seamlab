@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TaskOneController extends Controller
+class ProblemSolvingController extends Controller
 {
     /**
      * count all numbers between two integers except number with a 5 in it
