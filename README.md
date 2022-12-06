@@ -1,4 +1,4 @@
-## Installation steps
+# Installation steps
 
 * run composer install
 * copy .env.example and rename new file to .env
