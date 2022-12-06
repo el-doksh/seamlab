@@ -12,40 +12,40 @@
 
 ## APIs documentations
 
-* count numbers between two integers API
+# /count-numbers/{first_number}/{second_number} (GET)
 
-- endpoint : /count-numbers/{first_number}/{second_number}
-- method: GET
-- params : first_name (integer)
-- params : second_number (integer) : should be greater than first_name
-- return type : integer 
+description: count numbers between two integers API
+method: GET
+params : first_name (integer)
+params : second_number (integer) : should be greater than first_name
+return type : integer 
 
 - example:
-- request: /count-numbers/5/20
-- response: 14
+request: /count-numbers/5/20
+response: 14
 
-* get index for given string API
+# /string-index/{input_string} (GET)
 
-- endpoint : /string-index/{input_string}
-- method: GET
-- params : input_string (string) should have characters only
-- return type : integer 
-
-- example: 
-- request: /string-index/AA
-- response: 27
-
-* calculate steps to reduce element of array to zero API
-
-- endpoint : /steps-count
-- method: GET
-- params : N (integer) count of elements
-- params : Q (array of N integers)
-- return type : array
+description: get index for given string API
+method: GET
+params : input_string (string) should have characters only
+return type : integer 
 
 - example: 
-- request: /steps-count
-- body: {
+request: /string-index/AA
+response: 27
+
+# /steps-count (GET)
+
+description: calculate steps to reduce element of array to zero API
+method: GET
+params : N (integer) count of elements
+params : Q (array of N integers)
+return type : array
+
+- example: 
+request: /steps-count
+body: {
     "Q" : [
         3,
         4,
@@ -53,36 +53,34 @@
     ],
     "N" : 3
 }
-- response: [
+response: [
     3,
     3,
     4
 ]
 
-* menu items API
+# /menu-items (GET)
 
-- return menu items list api
-- endpoint : /menu-items
-- method : GET
-- return type : array of objects 
+description: menu items list API
+method : GET
+return type : array of objects 
 
+# /order (POST)
 
-* create order API
-
-- endpoint : /order
-- method : POST
-- params : status (string should be in dine-in, delivery or takeaway )
-- params : items (array of items each item should have menu_item_id & quantity )
-- params : customer_name (string required if status is delivery)
-- params : customer_phone (integer required if status is delivery)
-- params : table_number (integer required if status is dine-in)
-- params : waiter_name (string required if status is dine-in)
-- params : fees (double required if status in delivery or dine-in)
-- return type : order object
+description: create order API
+method : POST
+params : status (string should be in dine-in, delivery or takeaway )
+params : items (array of items each item should have menu_item_id & quantity )
+params : customer_name (string required if status is delivery)
+params : customer_phone (integer required if status is delivery)
+params : table_number (integer required if status is dine-in)
+params : waiter_name (string required if status is dine-in)
+params : fees (double required if status in delivery or dine-in)
+return type : order object
 
 - example:
-- request: /order
-- body : {
+request: /order
+body : {
     "status" : "dine-in",
     "items" : [
         {
@@ -99,7 +97,7 @@
     "fees" : 40
 }
 
-- response :{
+response :{
     "message": "Order created successfully",
     "errors": [],
     "data": {
