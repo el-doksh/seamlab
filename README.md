@@ -10,9 +10,9 @@
 * run php artisan optimize:clear
 
 
-## APIs documentations
+# APIs documentations
 
-# /count-numbers/{first_number}/{second_number} (GET)
+## /count-numbers/{first_number}/{second_number} (GET)
 
 description: count numbers between two integers API
 method: GET
@@ -20,22 +20,22 @@ params : first_name (integer)
 params : second_number (integer) : should be greater than first_name
 return type : integer 
 
-- example:
-request: /count-numbers/5/20
-response: 14
+### example:
+- request: /count-numbers/5/20
+- response: 14
 
-# /string-index/{input_string} (GET)
+## /string-index/{input_string} (GET)
 
 description: get index for given string API
 method: GET
 params : input_string (string) should have characters only
 return type : integer 
 
-- example: 
-request: /string-index/AA
-response: 27
+### example: 
+- request: /string-index/AA
+- response: 27
 
-# /steps-count (GET)
+## /steps-count (GET)
 
 description: calculate steps to reduce element of array to zero API
 method: GET
@@ -43,9 +43,9 @@ params : N (integer) count of elements
 params : Q (array of N integers)
 return type : array
 
-- example: 
-request: /steps-count
-body: {
+### example: 
+- request: /steps-count
+- body: {
     "Q" : [
         3,
         4,
@@ -53,19 +53,19 @@ body: {
     ],
     "N" : 3
 }
-response: [
+- response: [
     3,
     3,
     4
 ]
 
-# /menu-items (GET)
+## /menu-items (GET)
 
 description: menu items list API
 method : GET
 return type : array of objects 
 
-# /order (POST)
+## /order (POST)
 
 description: create order API
 method : POST
@@ -78,9 +78,9 @@ params : waiter_name (string required if status is dine-in)
 params : fees (double required if status in delivery or dine-in)
 return type : order object
 
-- example:
-request: /order
-body : {
+### example:
+- request: /order
+- body : {
     "status" : "dine-in",
     "items" : [
         {
@@ -96,8 +96,7 @@ body : {
     "waiter_name" : "Sherif Hesham",
     "fees" : 40
 }
-
-response :{
+- response :{
     "message": "Order created successfully",
     "errors": [],
     "data": {
